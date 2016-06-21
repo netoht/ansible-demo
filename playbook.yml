@@ -1,0 +1,11 @@
+---
+- hosts: mesos-slaves
+  vars:
+    docker_dir: /home/vagrant/.docker
+    ansible_become: true
+    ansible_user: deployer
+  tasks:
+  - name: cria diretorio docker
+    file: path={{ docker_dir }} state=directory
+  - name: copiar login do docker
+    copy: src=files/docker_config dest={{ docker_dir }}/config owner={{ ansible_user }} group={{ ansible_user }} mode=0644
